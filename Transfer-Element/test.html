@@ -1,0 +1,45 @@
+
+<!-- 引入样式 -->
+<link rel="stylesheet" href="css/index.css">
+<!-- 引入组件库 -->
+<script src="js/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="js/index.js"></script>
+<div id="app">
+<template>
+  <el-transfer v-model="value" filterable="" :titles="['待选人员', '已选人员']" :button-texts="['到左边', '到右边']" :format="{
+      noChecked: '${total}',
+      hasChecked: '${checked}/${total}'
+    }" @change="handleChange" :data="data">
+  </el-transfer>
+</template>
+</div>
+
+<script>
+  var Main = {
+    data() {
+      const generateData = _ => {
+        const data = [];
+        for (let i = 1; i <= 15; i++) {
+          data.push({
+            key: i,
+            label: `备选项 ${ i }`,
+          });
+        } 
+        return data;
+      };
+      return {
+        data: generateData(),
+        value: [1,2],
+      };
+    },
+
+    methods: {
+      handleChange(value, direction, movedKeys) {
+        console.log(value, direction, movedKeys);
+      }
+    }
+  };
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
+</script>
